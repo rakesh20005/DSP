@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+N = 20
+n = np.arange(-N, N)
+w = 2*np.pi / 20
+a = 0.9  # example amplitude base less than 1 for decay
+
+x = (a ** n) * np.exp(1j * w * n)
+
+plt.figure(figsize=(12, 8))
+
+plt.subplot(2, 1, 1)
+plt.stem(n, x.real)
+plt.title("Real part")
+plt.xlabel('n')
+plt.ylabel('cos(wn)')
+plt.grid()
+
+plt.subplot(2, 1, 2)
+plt.stem(n, x.imag, 'r')
+plt.title('Imaginary part')
+plt.xlabel('n')
+plt.ylabel('sin(wn)')
+plt.grid()
+
+plt.tight_layout()
+plt.show()

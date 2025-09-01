@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+x1 = np.array([1, 2, 3, 4])
+x2 = np.array([0, 1, 0.5, 0.2])
+
+# Define unit step input
+
+n = np.arange(-len(x1), len(x1)) 
+
+step_input = np.where(n >= 0, 1, 0) 
+
+# Step response = convolution of vector with step input
+y1 = np.convolve(x1, step_input)
+y2 = np.convolve(x2, step_input)
+
+# Plot step responses
+plt.figure(figsize=(10, 5))
+plt.stem(range(len(y1)), y1)
+
+plt.title('Step Response of x1')
+plt.xlabel('n')
+plt.ylabel('Amplitude')
+
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(10, 5))
+
+plt.stem(range(len(y2)), y2, 'r' )
+plt.title('Step Response of x1')
+plt.xlabel('n')
+plt.ylabel('Amplitude')
+
+plt.grid(True)
+plt.show()
