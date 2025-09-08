@@ -1,0 +1,70 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+x1 = [7, 8, 9,10]
+x2 = [1, 2, 3,10]
+
+def conv(x1, x2):
+    n1 = len(x1)
+    n2 = len(x2)
+    length = n1 + n2 - 1
+    result = [0] * length
+    
+    # Flip x2 for convolution
+    x2_flipped = x2[::-1]
+    
+    # Loop over every output index
+    for n in range(length):
+        sum_val = 0
+        # Loop over valid k values for summation
+        for k in range(n1):
+            j = n - k
+            if 0 <= j < n2:
+                sum_val += x1[k] * x2_flipped[j]
+        result[n] = sum_val
+    
+    return result
+
+def corr(x1, x2):
+    n1 = len(x1)
+    n2 = len(x2)
+    length = n1 + n2 - 1
+    result = [0] * length
+    
+    # Cross-correlation: no flipping of x2
+    for n in range(length):
+        sum_val = 0
+        for k in range(n1):
+            j = n - k
+            if 0 <= j < n2:
+                sum_val += x1[k] * x2[j]
+        result[n] = sum_val
+    
+    return result
+
+# Calculate convolution and correlation
+conv_res = conv(x1, x2)
+corr_res = corr(x1, x2)
+
+# Plot the results
+plt.figure(figsize=(12,6))
+
+plt.subplot(1, 2, 1)
+plt.stem(conv_res)
+plt.title("Convolution")
+plt.xlabel("n")
+plt.ylabel("Amplitude")
+plt.grid()
+
+
+
+plt.subplot(1, 2, 2)
+plt.stem(corr_res)
+plt.title("Cross-Correlation")
+plt.xlabel("n")
+plt.ylabel("Amplitude")
+plt.grid()
+
+plt.tight_layout()
+
+plt.show()
